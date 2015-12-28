@@ -18,7 +18,7 @@ use App\Parsers\OmsParser;
 Route::get('/', function(){
     $pacient = new Pacient(['fam'=>"Суворов",'im'=>"Александр",'ot'=>"Юрьевич",'dr'=>"1986.04.15"]);
 
-    $PacientManager = App::make("PacientManager"); //внедрение зависимости создаем класс и автоматом связываем реализацию с интерфейсом через биндинг
+    $PacientManager = App::make("App\PacientManager"); //внедрение зависимости создаем класс и автоматом связываем реализацию с интерфейсом через биндинг
     $info = $PacientManager->getPacientInfo($pacient);
     $pacient->fill($info);
     $pacient->save();

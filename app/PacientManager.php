@@ -18,7 +18,7 @@ class PacientManager {
     }
 
     function getPacientInfo(Pacient $pacient){
-        //$parser = $this->parser;
-        return IParser($this->parser)::getPacientInfo($pacient);
+        $parser = $this->parser;
+        return $parser::getPacientInfo($pacient);
     }
 } 
