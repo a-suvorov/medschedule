@@ -21,4 +21,17 @@ class PacientManager {
         $parser = $this->parser;
         return $parser::getPacientInfo($pacient);
     }
+
+    /*
+     * Проверяем записывался ли уже данный пациент ранее
+     */
+    function  getPacientIfExist(Pacient $pacient){
+        $resultPacient =  Pacient::where("fam",$pacient->fam)
+                                    ->where("im","=",$pacient->im)
+                                    ->where("ot","=",$pacient->ot)
+                                    ->where("dr","=",$pacient->dr)
+                                    ->first();
+        return ($resultPacient) ? $resultPacient : false;
+
+    }
 } 

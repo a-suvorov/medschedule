@@ -13,21 +13,16 @@
 
 use App\Pacient;
 use App\PacientManager;
-use App\Parsers\OmsParser;
 
-Route::get('/', function(){
-    $pacient = new Pacient(['fam'=>"Суворов",'im'=>"Александр",'ot'=>"Юрьевич",'dr'=>"1986.04.15"]);
 
+Route::any("/", function(){
+    $pacient = new Pacient(['fam'=>"Суворов",'im'=>"Александр",'ot'=>"Юрьевич",'dr'=>"1986-04-15"]);
     $PacientManager = App::make("App\PacientManager"); //внедрение зависимости создаем класс и автоматом связываем реализацию с интерфейсом через биндинг
-    $info = $PacientManager->getPacientInfo($pacient);
+
+    $curPacient =  $PacientManager->getPacientIfExist($pacient); // получаем текущего пациента если есть
+    if ($curPacient)  {$pacient = $curPacient; echo "true";} // будем обновлять данные пациента если он уже есть в БД.
+    $info = $PacientManager->getPacientInfo($pacient); // получение данных пациента
     $pacient->fill($info);
     $pacient->save();
 });
 
-/*Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
-*/
