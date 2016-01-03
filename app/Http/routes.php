@@ -11,18 +11,19 @@
 |
 */
 
-use App\Pacient;
-use App\PacientManager;
 
+Route::get("/", "HomeController@index");
+Route::any("/getpacient", "HomeController@login");
+Route::any("/logout", "HomeController@logout");
 
-Route::any("/", function(){
+/*Route::any("/test", function(){
     $pacient = new Pacient(['fam'=>"Суворов",'im'=>"Александр",'ot'=>"Юрьевич",'dr'=>"1986-04-15"]);
     $PacientManager = App::make("App\PacientManager"); //внедрение зависимости создаем класс и автоматом связываем реализацию с интерфейсом через биндинг
 
     $curPacient =  $PacientManager->getPacientIfExist($pacient); // получаем текущего пациента если есть
-    if ($curPacient)  {$pacient = $curPacient; echo "true";} // будем обновлять данные пациента если он уже есть в БД.
+    if ($curPacient)  {$pacient = $curPacient; } // будем обновлять данные пациента если он уже есть в БД.
     $info = $PacientManager->getPacientInfo($pacient); // получение данных пациента
-    $pacient->fill($info);
+    $pacient->fill($info); //Обновляем данные о пациенте в БД
     $pacient->save();
-});
+});*/
 

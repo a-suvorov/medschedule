@@ -25,7 +25,12 @@ class OmsParser implements  IParser {
         $dataTable = $matches[0][2];
         preg_match_all('/<td[\s\S]*>[\s\S]*<\/td>[\s\S]*<td>(?<value>[\s\S]*)<\/td>/U',$dataTable, $matches_value);
         //print_r($matches_value["value"]);
-        return ["n_polis"=>strip_tags($matches_value["value"][2]), "s_polis"=>strip_tags($matches_value["value"][1]), "kod_lpu"=>strip_tags($matches_value["value"][5]), "strahovaya"=>strip_tags($matches_value["value"][0])];
+        return [
+                "n_polis" => trim(strip_tags($matches_value["value"][2])),
+                "s_polis" => trim(strip_tags($matches_value["value"][1])),
+                "kod_lpu" => trim(strip_tags($matches_value["value"][5])),
+                "strahovaya" => trim(strip_tags($matches_value["value"][0]))
+        ];
     }
 
     static function getPacientInfo(Pacient $pacient){

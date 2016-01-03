@@ -25,12 +25,12 @@ class PacientManager {
     /*
      * Проверяем записывался ли уже данный пациент ранее
      */
-    function  getPacientIfExist(Pacient $pacient){
-        $resultPacient =  Pacient::where("fam",$pacient->fam)
-                                    ->where("im","=",$pacient->im)
-                                    ->where("ot","=",$pacient->ot)
-                                    ->where("dr","=",$pacient->dr)
-                                    ->first();
+    function  getPacientIfExist($num_polis){
+        $resultPacient =  Pacient::where("n_polis",$num_polis)->first();
+                                    //->where("im","=",$pacient->im)
+                                    //->where("ot","=",$pacient->ot)
+                                    //->where("dr","=",$pacient->dr)
+
         return ($resultPacient) ? $resultPacient : false;
 
     }

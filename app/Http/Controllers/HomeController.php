@@ -1,5 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use App\Pacient;
+use App\PacientManager;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 class HomeController extends Controller {
 
 	/*
@@ -20,17 +27,47 @@ class HomeController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('auth');
+		//$this->middleware('auth');
 	}
 
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return view('home');
-	}
+    public function index(){
+        if (Session::has("user_id") || (Auth::check())){
+            /*
+             * здесь передаем данные пацинета и получаем данные по врачам
+             */
+            return view("home");
+        }
+        else return view("auth");
+    }
+
+    public function login(Request $request){
+        $pacient = new Pacient([
+            'fam' => mb_strtoupper($request->input("fam")),
+            'im' => mb_strtoupper($request->input("im")),
+            'ot' => mb_strtoupper($request->input("ot")),
+            'dr' => $request->input("dr")
+        ]);
+
+        $PacientManager = App::make("App\PacientManager"); //внедрение зависимости создаем класс и автоматом связываем реализацию с интерфейсом через биндинг
+
+        $info = $PacientManager->getPacientInfo($pacient); // получение данных пациента
+        if ($info){
+            $curPacient =  $PacientManager->getPacientIfExist($info["n_polis"]); // получаем текущего пациента если есть
+            if ($curPacient)  {$pacient = $curPacient; } // будем обновлять данные пациента если он уже есть в БД.
+            $pacient->fill($info); //Обновляем данные о пациенте в БД
+            $pacient->phone = $request->input("phone");
+            $pacient->save();
+            Session::put("user_id", $pacient->id);
+            echo "true";
+        }
+        else echo "false";
+
+    }
+
+    public function logout(){
+        Session::forget("user_id");
+        Auth::logout();
+        return redirect("/");
+    }
 
 }
