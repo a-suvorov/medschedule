@@ -32,10 +32,24 @@ class HomeController extends Controller {
 
     public function index(){
         if (Session::has("user_id") || (Auth::check())){
+            $data = array();
+            if (Auth::check()) {  // вход выполнен в административную часть - то роль админа получаем пользователя из Users
+                $data["is_admin"] = true;
+            }
+            else {
+                $data["is_admin"] = false; // полаем пользователя из Pacients
+                $pacient = Pacient::find(Session::get("user_id"));
+                $data["user_fullname"] = implode(" ", array($pacient->fam, $pacient->im, $pacient->ot)); //объединяем в одну строку
+            };
+
+
+
+
+
             /*
              * здесь передаем данные пациента и получаем данные по врачам
              */
-            return view("home");
+            return view("home", ["data" => $data]);
         }
         else return view("auth");
     }
