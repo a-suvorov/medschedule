@@ -45,7 +45,7 @@ class OmsParser implements  IParser {
                 'FirstName' => $pacient->im,
                 'MiddleName' => $pacient->ot,
                 "searchType" => "2",  //говорит о том что ищем по ФИО
-                'Birthday' => '15.04.1986'
+                'Birthday' => $pacient->dr
                  //это на случай если на сайте, к которому обращаемся проверяется была ли нажата кнопка submit, а не была ли оправлена форма
             ));
         curl_setopt($curl, CURLOPT_USERAGENT, 'MSIE 5'); //эта строчка как-бы говорит: "я не скрипт, я IE5" :)

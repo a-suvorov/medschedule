@@ -33,7 +33,7 @@ class HomeController extends Controller {
     public function index(){
         if (Session::has("user_id") || (Auth::check())){
             /*
-             * здесь передаем данные пацинета и получаем данные по врачам
+             * здесь передаем данные пациента и получаем данные по врачам
              */
             return view("home");
         }
@@ -41,6 +41,7 @@ class HomeController extends Controller {
     }
 
     public function login(Request $request){
+        $arRes = array();
         $pacient = new Pacient([
             'fam' => mb_strtoupper($request->input("fam")),
             'im' => mb_strtoupper($request->input("im")),
@@ -51,6 +52,8 @@ class HomeController extends Controller {
         $PacientManager = App::make("App\PacientManager"); //внедрение зависимости создаем класс и автоматом связываем реализацию с интерфейсом через биндинг
 
         $info = $PacientManager->getPacientInfo($pacient); // получение данных пациента
+        $arRes["result"] = "false";
+        $arRes["error"][] = "Человек с такими данными не найден в базе ОМС";
         if ($info){
             $curPacient =  $PacientManager->getPacientIfExist($info["n_polis"]); // получаем текущего пациента если есть
             if ($curPacient)  {$pacient = $curPacient; } // будем обновлять данные пациента если он уже есть в БД.
@@ -58,9 +61,12 @@ class HomeController extends Controller {
             $pacient->phone = $request->input("phone");
             $pacient->save();
             Session::put("user_id", $pacient->id);
-            echo "true";
+            $arRes["result"] = "true";
+            echo json_encode($arRes);
         }
-        else echo "false";
+        else {
+            echo json_encode($arRes);
+        };
 
     }
 
