@@ -2,6 +2,7 @@
 
 use App\Pacient;
 use App\PacientManager;
+use App\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -41,10 +42,14 @@ class HomeController extends Controller {
                 $pacient = Pacient::find(Session::get("user_id"));
                 $data["user_fullname"] = implode(" ", array($pacient->fam, $pacient->im, $pacient->ot)); //объединяем в одну строку
             };
-
-
-
-
+            /*
+             * получаем список специализаций и "привязанных" к ним врачей
+             */
+            $specializations = Specialization::all();
+            foreach ($specializations as $spec){
+                $doctors = $spec->doctors;
+                if ($doctors->toArray()) $data["doctors"][$spec->name] = $doctors;
+            }
 
             /*
              * здесь передаем данные пациента и получаем данные по врачам
