@@ -35,8 +35,10 @@ class OmsParser implements  IParser {
 
     static function getPacientInfo(Pacient $pacient){
         $curl = curl_init(); //инициализация сеанса
+        $timeout = 10; // кол-во секунд ожидание ответа
         curl_setopt($curl, CURLOPT_URL, self::$omsUrl); //урл сайта к которому обращаемся
         curl_setopt($curl, CURLOPT_HEADER, 1); //выводим заголовки
+        curl_setopt ($curl, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($curl, CURLOPT_POST, 1); //передача данных методом POST
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); //теперь curl вернет нам ответ, а не выведет
         curl_setopt($curl, CURLOPT_POSTFIELDS, //тут переменные которые будут переданы методом POST
@@ -51,13 +53,19 @@ class OmsParser implements  IParser {
         curl_setopt($curl, CURLOPT_USERAGENT, 'MSIE 5'); //эта строчка как-бы говорит: "я не скрипт, я IE5" :)
         curl_setopt ($curl, CURLOPT_REFERER, "http://ya.ru"); //а вдруг там проверяют наличие рефера
         $res = curl_exec($curl);
-        //echo $res;
-        if (self::isTruePolis($res)){
-            $data = self::getPacientData($res);
-            //$pacient->fill($data);
-            //print_r($data)
-            return $data;
+        if (curl_errno($curl)){
+            return curl_errno($curl);
         }
-        else return false;
+        else {
+            if (self::isTruePolis($res)){
+                $data = self::getPacientData($res);
+                //$pacient->fill($data);
+                //print_r($data)
+                return $data;
+                //return $data;
+            }
+            else return false;
+        }
+
     }
 } 
