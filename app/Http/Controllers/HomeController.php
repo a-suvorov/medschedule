@@ -6,6 +6,7 @@ use App\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller {
@@ -65,8 +66,13 @@ class HomeController extends Controller {
             'fam' => mb_strtoupper($request->input("fam")),
             'im' => mb_strtoupper($request->input("im")),
             'ot' => mb_strtoupper($request->input("ot")),
-            'dr' => $request->input("dr")
+            'dr' => date("Y-m-d",strtotime($request->input("dr")))
         ]);
+
+        Log::info($request->input("dr"));
+        Log::info(strtotime($request->input("dr")));
+        Log::info(date("Y-m-d",strtotime($request->input("dr"))));
+
 
         $PacientManager = App::make("App\PacientManager"); //внедрение зависимости создаем класс и автоматом связываем реализацию с интерфейсом через биндинг
 
@@ -79,6 +85,7 @@ class HomeController extends Controller {
             if ($curPacient)  {$pacient = $curPacient; } // будем обновлять данные пациента если он уже есть в БД.
             $pacient->fill($info); //Обновляем данные о пациенте в БД
             $pacient->phone = $request->input("phone");
+            Log::info($pacient);
             $pacient->save();
             Session::put("user_id", $pacient->id);
             $arRes["result"] = "true";
