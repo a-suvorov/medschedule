@@ -2,6 +2,7 @@
 
 use App\Pacient;
 use App\PacientManager;
+use App\Schedule;
 use App\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -69,11 +70,6 @@ class HomeController extends Controller {
             'dr' => date("Y-m-d",strtotime($request->input("dr")))
         ]);
 
-        Log::info($request->input("dr"));
-        Log::info(strtotime($request->input("dr")));
-        Log::info(date("Y-m-d",strtotime($request->input("dr"))));
-
-
         $PacientManager = App::make("App\PacientManager"); //внедрение зависимости создаем класс и автоматом связываем реализацию с интерфейсом через биндинг
 
         $info = $PacientManager->getPacientInfo($pacient); // получение данных пациента
@@ -85,8 +81,8 @@ class HomeController extends Controller {
             if ($curPacient)  {$pacient = $curPacient; } // будем обновлять данные пациента если он уже есть в БД.
             $pacient->fill($info); //Обновляем данные о пациенте в БД
             $pacient->phone = $request->input("phone");
-            Log::info($pacient);
             $pacient->save();
+
             Session::put("user_id", $pacient->id);
             $arRes["result"] = "true";
             echo json_encode($arRes);
@@ -190,6 +186,39 @@ class HomeController extends Controller {
         Session::forget("user_id");
         Auth::logout();
         return redirect("/");
+    }
+
+    public function getSchedule(Request $request){
+        /*
+         * проверяем возможен ли доступ авторизирован ли пользователь
+         */
+        if (Session::has("user_id") || Auth::check()){
+            /*
+             * здесь делаем выборку расписания и отдаем шаблон
+             */
+            $doctor_id = $request->input("doctor_id");
+            $curdate =  Auth::check() ? date("Y-m-d", strtotime($request->input("date_priem"))) : date("Y-m-d");
+
+            /*
+             * лучаем даты начала и конца недели
+             */
+
+            $sheds = Schedule::where("doctor_id",$doctor_id)
+                                ->whereBetween('data_priem',$this->getStartEndWeek($curdate))
+                                ->get();
+
+            echo "<pre>"; print_r($sheds->toArray());echo "</pre>";
+
+        }
+    }
+
+    function getStartEndWeek($curdate){
+        $curdate = strtotime($curdate);
+        if (date("w",$curdate) != 1) $startWeek= date("Y-m-d" , strtotime("last Monday",$curdate));
+                                     else $startWeek= date("Y-m-d" , $curdate);
+        $endWeek= date("Y-m-d" , strtotime("Sunday",$curdate));
+        Log::info([$startWeek, $endWeek]);
+        return [$startWeek, $endWeek];
     }
 
 }

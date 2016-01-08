@@ -14,4 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pacient extends Model{
     protected $fillable = ['fam','im','ot','dr','phone','n_polis','s_polis','kod_lpu','strahovaya'];
 
+    public function schedules(){
+        return $this->hasMany("App\Doctor", "spec_id");
+    }
 } 
