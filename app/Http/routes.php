@@ -12,7 +12,7 @@
 */
 
 
-Route::get("/", "HomeController@index");
+Route::any("/", "HomeController@index");
 Route::any("/getpacient", "HomeController@login");
 Route::any("/getschedule", "HomeController@getSchedule");
 Route::any("/logout", "HomeController@logout");

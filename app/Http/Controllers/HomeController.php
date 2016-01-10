@@ -33,8 +33,25 @@ class HomeController extends Controller {
 		//$this->middleware('auth');
 	}
 
-    public function index(){
+    public function index(Request $request){
         if (Session::has("user_id") || (Auth::check())){
+            /*
+             * Запись нового пациента, если пришел запрос
+             */
+            $errorMessage = "";
+            $successMessage = "";
+            if ($request->has("save")){
+                $sched = Schedule::find($request->input('sched_id'));
+                if (!($sched->pacient_id)) {
+                    $sched->pacient_id = $request->input('user_id');
+                    $sched->save();
+                    $successMessage = "Запись к врачу {$sched->doctor->name} на дату ".date("d.m.Y", strtotime($sched->data_priem))." в {$sched->time_priem} часов успешно произведена";
+                }
+                else {
+                    $errorMessage = "Запись невозможна.";
+                }
+            }
+            /*****************************************************/
             $data = array();
             if (Auth::check()) {  // вход выполнен в административную часть - то роль админа получаем пользователя из Users
                 $data["is_admin"] = true;
@@ -42,6 +59,7 @@ class HomeController extends Controller {
             else {
                 $data["is_admin"] = false; // полаем пользователя из Pacients
                 $pacient = Pacient::find(Session::get("user_id"));
+                $data["user_id"] = $pacient->id;
                 $data["user_fullname"] = implode(" ", array($pacient->fam, $pacient->im, $pacient->ot)); //объединяем в одну строку
             };
             /*
@@ -56,7 +74,7 @@ class HomeController extends Controller {
             /*
              * здесь передаем данные пациента и получаем данные по врачам
              */
-            return view("home", ["data" => $data]);
+            return view("home", ["data" => $data,"success" => $successMessage, "error" => $errorMessage]);
         }
         else return view("auth");
     }
@@ -190,7 +208,7 @@ class HomeController extends Controller {
 
     public function getSchedule(Request $request){
         /*
-         * проверяем возможен ли доступ авторизирован ли пользователь
+         * проверяем возможен ли доступ, авторизирован ли пользователь
          */
         if (Session::has("user_id") || Auth::check()){
             /*
@@ -198,27 +216,84 @@ class HomeController extends Controller {
              */
             $doctor_id = $request->input("doctor_id");
             $curdate =  Auth::check() ? date("Y-m-d", strtotime($request->input("date_priem"))) : date("Y-m-d");
-
             /*
-             * лучаем даты начала и конца недели
+             * лучаем даты начала и конца недели и делаем выборку из БД
              */
 
-            $sheds = Schedule::where("doctor_id",$doctor_id)
+            $scheds = Schedule::where("doctor_id",$doctor_id)
                                 ->whereBetween('data_priem',$this->getStartEndWeek($curdate))
+                                ->orderBy('data_priem')
+                                ->orderBy('time_priem')
                                 ->get();
-
-            echo "<pre>"; print_r($sheds->toArray());echo "</pre>";
-
+            /*
+             * если расписание есть, то формируем массив удобный для вывода в шаблон
+             */
+            $result = ($scheds->toArray()) ? $formatedSchedule = $this->formatSchedule($scheds, $curdate): array();
+            return view("schedule",["schedule" => $result]);
         }
     }
 
-    function getStartEndWeek($curdate){
+    private function getStartEndWeek($curdate){
         $curdate = strtotime($curdate);
         if (date("w",$curdate) != 1) $startWeek= date("Y-m-d" , strtotime("last Monday",$curdate));
                                      else $startWeek= date("Y-m-d" , $curdate);
         $endWeek= date("Y-m-d" , strtotime("Sunday",$curdate));
-        Log::info([$startWeek, $endWeek]);
+        /*
+         * Если воскресенье, то прибавляем 7 дней, чтобы отобразить следующую неделю
+         */
+        if (date("w",$curdate) == 0){
+            $startWeek = date("Y-m-d" , strtotime($startWeek . "+7 day"));
+            $endWeek = date("Y-m-d" , strtotime($endWeek . "+7 day"));
+        }
         return [$startWeek, $endWeek];
+    }
+
+    private function formatSchedule($scheds, $curdate){
+        $week = array();
+        $maxHeaders = $this->getStartEndWeek($curdate);
+        $startDate = $maxHeaders[0];
+        for ($i = 1; $i <= 7; $i++){
+            switch ($i){
+                case 1: $week[$i]["header"] =  "Пн<br>"; break;
+                case 2: $week[$i]["header"] =  "Вт<br>"; break;
+                case 3: $week[$i]["header"] =  "Ср<br>"; break;
+                case 4: $week[$i]["header"] =  "Чт<br>"; break;
+                case 5: $week[$i]["header"] =  "Пт<br>"; break;
+                case 6: $week[$i]["header"] =  "Сб<br>"; break;
+                case 7: $week[$i]["header"] =  "Вс<br>"; break;
+            }
+//            echo $startDate."<br>";
+            $week[$i]["header"] .= date("d.m", strtotime($startDate));
+            $startDate = date("Y-m-d",strtotime($startDate."+1 day"));
+        }
+        foreach ($scheds as $sched){
+            $datatime_priem = strtotime($sched->data_priem);
+            $dm_priem = date("d.m", $datatime_priem);
+            switch (date("w", $datatime_priem)){
+                case 1:
+                    $week[1]["data"][] = $sched;
+                    break; //понедельник
+                case 2:
+                    $week[2]["data"][] = $sched;
+                    break; //вторник
+                case 3:
+                    $week[3]["data"][] = $sched;
+                    break; //среда
+                case 4:
+                    $week[4]["data"][] = $sched;
+                    break; //четверг
+                case 5:
+                    $week[5]["data"][] = $sched;
+                    break; //пятница
+                case 6:
+                    $week[6]["data"][] = $sched;
+                    break; //суббота
+                case 0:
+                    $week[7]["data"][] = $sched;
+                    break; //воскресенье
+            }
+        }
+        return $week;
     }
 
 }
