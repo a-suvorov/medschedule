@@ -13,6 +13,7 @@
 
 
 Route::any("/", "HomeController@index");
+Route::any("/admin", "HomeController@admin");
 Route::any("/getpacient", "HomeController@login");
 Route::any("/getschedule", "HomeController@getSchedule");
 Route::any("/logout", "HomeController@logout");

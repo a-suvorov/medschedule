@@ -4,6 +4,7 @@ use App\Pacient;
 use App\PacientManager;
 use App\Schedule;
 use App\Specialization;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,30 @@ class HomeController extends Controller {
 		//$this->middleware('auth');
 	}
 
+    /*
+     * вход администратора
+     */
+    public function admin(Request $request){
+        $error = "";
+        if ($request->has("enter")){
+            Auth::attempt(['login' => $request->input("login"), 'password' => $request->input("password")]);
+            /*User::create([
+                'login' => $request->input("login"),
+                'password' => bcrypt($request->input("password")),
+            ]);*/
+        }
+
+        if (Auth::check()){
+            //echo "wer";
+            //exit;
+            return redirect("/");
+        }
+        else{
+            return view("authadmin", ["error" => $error]);
+        }
+
+    }
+
     public function index(Request $request){
         if (Session::has("user_id") || (Auth::check())){
             /*
@@ -41,20 +66,29 @@ class HomeController extends Controller {
             $errorMessage = "";
             $successMessage = "";
             if ($request->has("save")){
-                $sched = Schedule::find($request->input('sched_id'));
-                if (!($sched->pacient_id)) {
-                    $sched->pacient_id = $request->input('user_id');
-                    $sched->save();
-                    $successMessage = "Запись к врачу {$sched->doctor->name} на дату ".date("d.m.Y", strtotime($sched->data_priem))." в {$sched->time_priem} часов успешно произведена";
+                if (!Auth::check()){
+                    $sched = Schedule::find($request->input('sched_id'));
+                    if (!($sched->pacient_id)) {
+                        $sched->pacient_id = $request->input('user_id');
+                        $sched->save();
+                        $successMessage = "Запись к врачу {$sched->doctor->name} на дату ".date("d.m.Y", strtotime($sched->data_priem))." в {$sched->time_priem} часов успешно произведена";
+                    }
+                    else {
+                        $errorMessage = "Запись невозможна.";
+                    }
                 }
                 else {
-                    $errorMessage = "Запись невозможна.";
+                    $errorMessage = "Вы вошли как администратор запись невозможна";
                 }
+
             }
             /*****************************************************/
             $data = array();
             if (Auth::check()) {  // вход выполнен в административную часть - то роль админа получаем пользователя из Users
                 $data["is_admin"] = true;
+                $user = Auth::user();
+                $data["user_id"] = $user->id;
+                $data["user_fullname"] = $user->fullname;
             }
             else {
                 $data["is_admin"] = false; // полаем пользователя из Pacients
@@ -215,7 +249,8 @@ class HomeController extends Controller {
              * здесь делаем выборку расписания и отдаем шаблон
              */
             $doctor_id = $request->input("doctor_id");
-            $curdate =  Auth::check() ? date("Y-m-d", strtotime($request->input("date_priem"))) : date("Y-m-d");
+            $curdate = date("Y-m-d");
+            if ((Auth::check()) && $request->has("date_priem")) $curdate = date("Y-m-d", strtotime($request->input("date_priem")));
             /*
              * лучаем даты начала и конца недели и делаем выборку из БД
              */
