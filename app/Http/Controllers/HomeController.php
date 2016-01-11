@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller {
 
@@ -60,11 +61,35 @@ class HomeController extends Controller {
 
     public function index(Request $request){
         if (Session::has("user_id") || (Auth::check())){
+            $errorMessage = "";
+            $successMessage = "";
+            /*
+             * Добавление нового приема если пришел запрос
+             */
+
+            if ($request->has("add_datatime")){
+                $validator = Validator::make(
+                    $request->all(),
+                    ["data_priem"=> "required", "time_priem"=> "required", "doctor_id"=> "required"]
+                );
+                if ($validator->fails()){
+                    $errorMessage = "Не все поля заполнены или невыбран врач";
+                }
+                else {
+                    $schedLine = new Schedule();
+                    $schedLine->data_priem =  date("Y-m-d", strtotime($request->input("data_priem")));
+                    $schedLine->time_priem = $request->input("time_priem");
+                    $schedLine->doctor_id = $request->input("doctor_id");
+                    $schedLine->save();
+                    $successMessage = "В расписание врача ".$schedLine->doctor->name." добавлен прием на дату ".date("d.m.Y", strtotime($schedLine->data_priem))." время {$schedLine->time_priem}";
+                }
+            }
+
+            /************************************************/
             /*
              * Запись нового пациента, если пришел запрос
              */
-            $errorMessage = "";
-            $successMessage = "";
+
             if ($request->has("save")){
                 if (!Auth::check()){
                     $sched = Schedule::find($request->input('sched_id'));
