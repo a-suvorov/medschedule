@@ -1,0 +1,47 @@
+.doctors-list * {
+    list-style: outside none none;
+}
+
+.doctors-list{
+	border: 1px solid  $border-color;
+}
+
+.doctors-list__link {
+    color: #333;
+}
+
+.doctors-list__group-title {
+    font-weight: 700;
+}
+
+.doctors-list__item {
+    font-weight: 300;
+}
+
+.doctors-list__item.active > .doctors-list__link{
+	color: #83B745;
+}
+
+.doctors-list__item{
+	border-bottom: 1px solid $border-color;
+    display: block;
+    padding: 15px 0;
+}
+
+.doctors-list__group-title {
+    background:  $border-color none repeat scroll 0 0;
+    border-bottom: 1px solid $border-color;
+    border-top: 1px solid  $border-color;
+    display: block;
+    font-size: 17px;
+    padding: 11px 0;
+    text-align: center;
+}
+
+.doctors-list__group-list {
+    margin: 0;
+    
+    .doctors-list__item{
+    	padding-left: 30px ;
+    }
+}

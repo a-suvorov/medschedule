@@ -1,0 +1,12 @@
+.footer{
+	@extend .header;
+}
+
+.copyright {
+    text-align: center;
+}
+
+.row.footer {
+    height: 70px !important;
+    
+}

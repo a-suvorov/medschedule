@@ -3,6 +3,6 @@
 /config
 /bootstrap
 /.idea
-/resources
+/resources/assets/
 /layout
 .env

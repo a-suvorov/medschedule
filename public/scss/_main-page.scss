@@ -1,0 +1,130 @@
+
+
+.main-wrapper {
+    background-image: url("../images/main-bg.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100%;
+    position: relative;
+    padding-top: 60px;
+}
+
+
+.login-form {
+    background: rgba(196, 224, 239, 0.9) none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    top: 0;
+    width: 600px;
+    padding-bottom: 25px;
+}
+
+
+.login-form__enter {
+    background: #8e9fd2 none repeat scroll 0 0;
+    color: #ffffff;
+    display: block;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 183px;
+    -webkit-transition: all 0.5s ease-out 0s;
+       -moz-transition: all 0.5s ease-out 0s;
+        -ms-transition: all 0.5s ease-out 0s;
+         -o-transition: all 0.5s ease-out 0s;
+            transition: all 0.5s ease-out 0s;
+    
+    &:hover{
+    	color: #ffffff;
+    	background: #6578B2;
+    }
+}
+
+
+.login-form input[type="text"] {
+    background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0 !important;
+    border-color: #ffffff !important;
+    box-shadow: none !important;
+    color: #444 !important;
+    font-size: 18px !important;
+    font-weight: 300;
+    height: 40px !important;
+    margin: 10px auto !important;
+    outline: medium none;
+    padding-left: 30px !important;
+    text-transform: uppercase;
+    width: 350px !important;
+}
+
+h1.main-h1 {
+    background: rgba(142, 159, 210,0.9) none repeat scroll 0 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+.login-form__data {
+    padding: 30px 30px 20px;
+}
+
+.pers-info {
+    margin: 0 auto;
+    width: 350px;
+    text-align: center;
+}
+
+label.pers-info__label {
+    font-weight: 300;
+    color: #000;
+}
+
+.information {
+    color: #000;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 20px 10px 0;
+    text-align: center;
+    
+}
+
+
+span.rules-title {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.rules__ok {
+    color: #fff !important;
+    background: $main-color !important;
+    display: block;
+    font-size: 16px !important;
+    font-weight: 300 !important;
+    margin: 0 auto !important;
+    padding: 10px !important;
+    position: relative !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    width: 100px;
+}
+
+.rules-list__item {
+    font-weight: 300;
+}
+
+.login-form__error {
+    color: red;
+    font-weight: 300;
+    margin: 0 auto;
+    width: 350px;
+}

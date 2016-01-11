@@ -1,0 +1,30 @@
+body *{
+	font-family: "Open Sans";
+}
+
+body, html {
+	height: 100%;
+}
+
+$border-color: #e8eaed;
+$main-color: #8e9fd2;
+
+.row.content {
+    border-top: 1px solid $border-color;
+}
+
+.row.content {
+/*    margin-top: -80px;
+    min-height: 100%;*/
+    padding-top: 20px;
+
+    min-height: calc(100vh - 140px);
+}
+
+a{
+	-webkit-transition: all 0.5s ease-out 0s;
+	   -moz-transition: all 0.5s ease-out 0s;
+	    -ms-transition: all 0.5s ease-out 0s;
+	     -o-transition: all 0.5s ease-out 0s;
+	        transition: all 0.5s ease-out 0s;
+}

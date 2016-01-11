@@ -1,0 +1,109 @@
+.schedule-table__cell {
+    background: #f9f9f9 none repeat scroll 0 0;
+    color: #fff;
+    font-weight: 300;
+    height: 100px;
+    line-height: 100px;
+    margin: 2px 0;
+    text-align: center;
+        -webkit-transition: all 0.5s ease-out 0s;
+    -moz-transition: all 0.5s ease-out 0s;
+    -ms-transition: all 0.5s ease-out 0s;
+    -o-transition: all 0.5s ease-out 0s;
+    transition: all 0.5s ease-out 0s;
+    width: 100%;
+}
+
+.schedule-table__header {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+
+.schedule-table__cell > a {
+    display: block;
+    height: 100%;
+    line-height: 100px;
+    color: #fff;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.green{
+	background: #83B745;
+	&:hover{
+    	background: #037003;
+    }
+}
+
+.red{
+	background: #ff4242;
+}
+
+.gray{
+    background: #F9F9F9;
+}
+
+.description__block {
+    display: inline-block;
+    height: 22px;
+    width: 50px;
+}
+
+.description__block,.description__block2{
+    vertical-align: middle;
+    font-weight: 300;
+}
+
+.schedule-table {
+    border: 1px solid #dddddd;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-right: 10px;
+    width: 85%;
+}
+
+.description-inner {
+    margin-bottom: 8px;
+}
+
+.message__content {
+    font-weight: 300;
+    text-align: center;
+    padding-top: 15px;
+    font-size: 20px;
+}
+
+.message__action {
+    padding-top: 30px;
+    text-align: center;
+}
+
+.message__doctor,.message__time{
+        font-weight: 600;
+}
+
+.schedule-table ul {
+    list-style: outside none none;
+    margin-left: 0;
+}
+
+.schedule-table__day-list {
+    padding: 0 1px !important;
+}
+
+.page-title {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.page-title__name {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #83b745;
+}

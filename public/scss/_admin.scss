@@ -1,0 +1,25 @@
+.admin-bar {
+    border-bottom: 1px solid;
+    margin-bottom: 15px;
+    padding: 10px 0;
+}
+
+.admin-bar__date, .admin-bar__time {
+    display: inline-block;
+    font-weight: 300;
+}
+
+.admin-bar__time {
+	margin-left: 10px;
+}
+
+.ui-datepicker * {
+    font-weight: 300 !important;
+}
+
+div.ui-widget-header {
+    background: #83b745 none repeat scroll 0 0;
+    border: 1px solid #83b745;
+    color: #fff;
+    font-weight: bold;
+}
