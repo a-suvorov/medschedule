@@ -40,6 +40,7 @@ $(document).ready(function(){
 		$(".message__time").html($(this).html());
 		$("input[name='sched_id']").val( $(this).attr('data-sched-id') );
 		$("input[name='user_id']").val( $('.username').attr('data-user-id') );
+		
 		$('#message').foundation('reveal','open');
 	});
 	/*******************************************************************************/

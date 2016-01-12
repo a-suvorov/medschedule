@@ -17,6 +17,7 @@ Route::any("/admin", "HomeController@admin");
 Route::any("/getpacient", "HomeController@login");
 Route::any("/getschedule", "HomeController@getSchedule");
 Route::any("/logout", "HomeController@logout");
+Route::any("/get-peoples-list", "HomeController@getPeopleList");
 
 /*Route::any("/test", function(){
     $pacient = new Pacient(['fam'=>"Суворов",'im'=>"Александр",'ot'=>"Юрьевич",'dr'=>"1986-04-15"]);

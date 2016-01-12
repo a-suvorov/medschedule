@@ -6,6 +6,7 @@
     {{--<meta name="_token" content="{{ csrf_token()}}"/>---}}
     <title>Система записи к врачу через Интернет - Больница КНЦ РАН</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/icons/foundation-icons.css" />
     <link href='https://yastatic.net/jquery-ui/1.11.2/themes/ui-lightness/jquery-ui.min.css' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,300italic,600,600italic,700,700italic&subset=latin,latin-ext,cyrillic,cyrillic-ext' rel='stylesheet' type='text/css'>
     <script src="bower_components/modernizr/modernizr.js"></script>

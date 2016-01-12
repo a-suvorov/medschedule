@@ -9782,9 +9782,19 @@ a {
   -o-transition: all 0.5s ease-out 0s;
   transition: all 0.5s ease-out 0s;
   width: 100%;
+  position: relative;
 }
 
-/* line 17, ../scss/_schedule-table.scss */
+/* line 18, ../scss/_schedule-table.scss */
+.pay_flag {
+  bottom: 10px;
+  left: 0;
+  line-height: 25px;
+  position: absolute;
+  width: 100%;
+}
+
+/* line 26, ../scss/_schedule-table.scss */
 .schedule-table__header {
   display: block;
   font-size: 15px;
@@ -9792,7 +9802,7 @@ a {
   text-align: center;
 }
 
-/* line 26, ../scss/_schedule-table.scss */
+/* line 35, ../scss/_schedule-table.scss */
 .schedule-table__cell > a {
   display: block;
   height: 100%;
@@ -9802,39 +9812,39 @@ a {
   font-size: 16px;
 }
 
-/* line 35, ../scss/_schedule-table.scss */
+/* line 44, ../scss/_schedule-table.scss */
 .green {
   background: #83B745;
 }
-/* line 37, ../scss/_schedule-table.scss */
+/* line 46, ../scss/_schedule-table.scss */
 .green:hover {
   background: #037003;
 }
 
-/* line 42, ../scss/_schedule-table.scss */
+/* line 51, ../scss/_schedule-table.scss */
 .red {
   background: #ff4242;
 }
 
-/* line 46, ../scss/_schedule-table.scss */
+/* line 55, ../scss/_schedule-table.scss */
 .gray {
   background: #F9F9F9;
 }
 
-/* line 50, ../scss/_schedule-table.scss */
+/* line 59, ../scss/_schedule-table.scss */
 .description__block {
   display: inline-block;
   height: 22px;
   width: 50px;
 }
 
-/* line 56, ../scss/_schedule-table.scss */
+/* line 65, ../scss/_schedule-table.scss */
 .description__block, .description__block2 {
   vertical-align: middle;
   font-weight: 300;
 }
 
-/* line 61, ../scss/_schedule-table.scss */
+/* line 70, ../scss/_schedule-table.scss */
 .schedule-table {
   border: 1px solid #dddddd;
   margin-top: 50px;
@@ -9844,12 +9854,12 @@ a {
   text-align: center;
 }
 
-/* line 70, ../scss/_schedule-table.scss */
+/* line 79, ../scss/_schedule-table.scss */
 .description-inner {
   margin-bottom: 8px;
 }
 
-/* line 74, ../scss/_schedule-table.scss */
+/* line 83, ../scss/_schedule-table.scss */
 .message__content {
   font-weight: 300;
   text-align: center;
@@ -9857,36 +9867,36 @@ a {
   font-size: 20px;
 }
 
-/* line 81, ../scss/_schedule-table.scss */
+/* line 90, ../scss/_schedule-table.scss */
 .message__action {
   padding-top: 30px;
   text-align: center;
 }
 
-/* line 86, ../scss/_schedule-table.scss */
+/* line 95, ../scss/_schedule-table.scss */
 .message__doctor, .message__time {
   font-weight: 600;
 }
 
-/* line 90, ../scss/_schedule-table.scss */
+/* line 99, ../scss/_schedule-table.scss */
 .schedule-table ul {
   list-style: outside none none;
   margin-left: 0;
 }
 
-/* line 95, ../scss/_schedule-table.scss */
+/* line 104, ../scss/_schedule-table.scss */
 .schedule-table__day-list {
   padding: 0 1px !important;
 }
 
-/* line 99, ../scss/_schedule-table.scss */
+/* line 108, ../scss/_schedule-table.scss */
 .page-title {
   font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
 }
 
-/* line 105, ../scss/_schedule-table.scss */
+/* line 114, ../scss/_schedule-table.scss */
 .page-title__name {
   font-size: 20px;
   font-weight: 600;
@@ -9894,19 +9904,19 @@ a {
   color: #83b745;
 }
 
-/* line 112, ../scss/_schedule-table.scss */
+/* line 121, ../scss/_schedule-table.scss */
 .schedule-message {
   font-weight: 300;
   padding: 50px;
 }
 
-/* line 117, ../scss/_schedule-table.scss */
+/* line 126, ../scss/_schedule-table.scss */
 .message__cancel, .message__ok {
   height: 50px;
   vertical-align: top;
 }
 
-/* line 122, ../scss/_schedule-table.scss */
+/* line 131, ../scss/_schedule-table.scss */
 .alert-box {
   font-size: 16px;
   font-weight: 300;
@@ -10204,6 +10214,14 @@ div.ui-widget-header {
   padding: 0;
   vertical-align: bottom;
   width: 129px;
+}
+
+/* line 38, ../scss/_admin.scss */
+.admin-bar__pacients-list, .admin-bar__doctors-list {
+  display: inline-block;
+  font-size: 50px;
+  margin-left: 30px;
+  vertical-align: bottom;
 }
 
 /* line 1, ../scss/_adminlogin.scss */

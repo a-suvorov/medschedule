@@ -30,6 +30,9 @@ $.datepicker.regional['ru'] = {
 	  $.datepicker.setDefaults(
         $.extend($.datepicker.regional["ru"])
 	  );
+
+      $(".message_data_priem").datepicker();
+
 	  $(".admin-bar__input-date").datepicker({
               onSelect: function(dateText) {
                 //alert("Selected date: " + dateText + "; input's current value: " + this.value);
@@ -57,6 +60,7 @@ $.datepicker.regional['ru'] = {
 
 
 	  $('.admin-bar__input-time').mask('00:00');
+      $('.message_time_priem').mask('00:00');
 
 })
 

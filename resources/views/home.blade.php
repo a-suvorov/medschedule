@@ -9,7 +9,7 @@
                 <ul class="doctors-list__group-list">
                 @foreach ($doctors as $doctor)
                              <li class="doctors-list__item"><a href="javascript:void(0)" data-id="{{$doctor->id}}" class="doctors-list__link">{{$doctor->name}}</a></li>
-                    @endforeach
+                @endforeach
 
                 </ul>
             </li>
@@ -27,6 +27,8 @@
               <input type="hidden" name="doctor_id" class="admin-bar__doctor-id" value=""/>
               <input type="hidden" name="_token" class="" value="{{csrf_token()}}"/>
               <input class="button success add_datatime" name="add_datatime" value="Добавить" type="submit">
+              <a href="/get-peoples-list" class="fi-torsos-all admin-bar__pacients-list" data-tooltip aria-haspopup="true" class="has-tip" title="Список пациентов"></a>
+              <a class="fi-torso-business admin-bar__doctors-list" data-tooltip aria-haspopup="true" class="has-tip" title="Врачи (настройка)"></a>
           </form>
         </div>
         @endif
@@ -67,12 +69,13 @@
     @if ($data["is_admin"])
     <div id="message" class="message reveal-modal small"  data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
         <form action="" method="post">
-            <h2>Информация о приеме</h2>
-            <input type="hidden" name="priem_id" value="">
-            <label for="">Дата</label>
-            <input type="text" name="data_priem" value="">
-            <label for="">Время</label>
-            <input type="text" name="time_priem" value="">
+            <h2>Изменение информации о приеме</h2>
+            <input type="hidden" class="sched_id" name="sched_id" value="">
+            <input type="hidden" name="_token" value="{{ csrf_token()}}"/>
+            <label for="">Новая дата</label>
+            <input type="text" class="message_data_priem" name="message_data_priem" value="">
+            <label for="">Новое время</label>
+            <input type="text" class="message_time_priem" name="message_time_priem" value="">
             <input type="submit" class="button success" value="Обновить" name="update_priem"/>
             <input type="submit" class="button alert" value="Удалить" name="del_priem"/>
         </form>

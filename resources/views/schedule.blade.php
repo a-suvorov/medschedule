@@ -8,9 +8,20 @@
                 @foreach ($sch["data"] as $priem)
                   
                   @if ($priem->pacient_id)
-                  <li class="red schedule-table__cell">{{$priem->time_priem}}</li>
+                  <li class="red schedule-table__cell">
+                      {{$priem->time_priem}}
+                      @if ($priem->pay == 1)
+                        <span class="pay_flag">(платный)</span>
+                      @endif
+                  </li>
                   @else
-                  <li class="green schedule-table__cell"><a href="javascript:void(0)" data-sched-id="{{$priem->id}}">{{$priem->time_priem}}</a></li>
+                  <li class="green schedule-table__cell">
+                      <a href="javascript:void(0)" data-sched-id="{{$priem->id}}">
+                          {{$priem->time_priem}}
+                          @if ($priem->pay == 1)
+                          <span class="pay_flag">(платный)</span>
+                          @endif
+                      </a></li>
                   @endif
                 @endforeach
               </ul>
