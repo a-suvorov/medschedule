@@ -1,0 +1,50 @@
+.adminlogin-form {
+    background: rgba(196, 224, 239, 0.9) none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    top: 0;
+    width: 600px;
+    padding-bottom: 25px;
+}
+
+
+input.adminlogin-form__enter {
+    background: #8e9fd2 none repeat scroll 0 0;
+    color: #ffffff;
+    display: block;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0 auto;
+    height: 50px;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 183px;
+    -webkit-transition: all 0.5s ease-out 0s;
+       -moz-transition: all 0.5s ease-out 0s;
+        -ms-transition: all 0.5s ease-out 0s;
+         -o-transition: all 0.5s ease-out 0s;
+            transition: all 0.5s ease-out 0s;
+    
+    &:hover{
+    	color: #ffffff;
+    	background: #6578B2;
+    }
+}
+
+
+.adminlogin-form input[type="text"], input.adminlogin-form__pass {
+    background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0 !important;
+    border-color: #ffffff !important;
+    box-shadow: none !important;
+    color: #444 !important;
+    font-size: 18px !important;
+    font-weight: 300;
+    height: 40px !important;
+    margin: 10px auto !important;
+    outline: medium none;
+    padding-left: 30px !important;
+    
+    width: 350px !important;
+}
