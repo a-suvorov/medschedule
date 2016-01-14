@@ -28,7 +28,7 @@
               <input type="hidden" name="_token" class="" value="{{csrf_token()}}"/>
               <input class="button success add_datatime" name="add_datatime" value="Добавить" type="submit">
               <a href="/get-peoples-list" class="fi-torsos-all admin-bar__pacients-list" data-tooltip aria-haspopup="true" class="has-tip" title="Список пациентов"></a>
-              <a class="fi-torso-business admin-bar__doctors-list" data-tooltip aria-haspopup="true" class="has-tip" title="Врачи (настройка)"></a>
+              <a href="/get-doctors-list" class="fi-torso-business admin-bar__doctors-list" data-tooltip aria-haspopup="true" class="has-tip" title="Врачи (настройка)"></a>
           </form>
         </div>
         @endif

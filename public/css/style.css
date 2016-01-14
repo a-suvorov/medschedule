@@ -10224,6 +10224,17 @@ div.ui-widget-header {
   vertical-align: bottom;
 }
 
+/* line 45, ../scss/_admin.scss */
+.del-button {
+  font-family: Open Sans;
+  font-weight: 300;
+  line-height: 38px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100px;
+}
+
 /* line 1, ../scss/_adminlogin.scss */
 .adminlogin-form {
   background: rgba(196, 224, 239, 0.9) none repeat scroll 0 0;

@@ -23,3 +23,31 @@ div.ui-widget-header {
     color: #fff;
     font-weight: bold;
 }
+
+.add_datatime {
+    font-family: open sans;
+    font-weight: 300 !important;
+    height: 37px;
+    line-height: 2px;
+    margin-bottom: 16px !important;
+    padding: 0;
+    vertical-align: bottom;
+    width: 129px;
+}
+
+.admin-bar__pacients-list, .admin-bar__doctors-list{
+    display: inline-block;
+    font-size: 50px;
+    margin-left: 30px;
+    vertical-align: bottom;
+}
+
+.del-button {
+    font-family: Open Sans;
+    font-weight: 300;
+    line-height: 38px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100px;
+}

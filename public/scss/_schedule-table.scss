@@ -12,6 +12,15 @@
     -o-transition: all 0.5s ease-out 0s;
     transition: all 0.5s ease-out 0s;
     width: 100%;
+    position: relative;
+}
+
+.pay_flag {
+    bottom: 10px;
+    left: 0;
+    line-height: 25px;
+    position: absolute;
+    width: 100%;
 }
 
 .schedule-table__header {
@@ -64,6 +73,7 @@
     margin-bottom: 50px;
     padding-right: 10px;
     width: 85%;
+    text-align: center;
 }
 
 .description-inner {
@@ -106,4 +116,22 @@
     font-weight: 600;
     text-transform: uppercase;
     color: #83b745;
+}
+
+.schedule-message {
+    font-weight: 300;
+    padding: 50px;
+}
+
+.message__cancel,.message__ok{
+    height: 50px;
+    vertical-align: top;
+}
+
+.alert-box {
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 50px;
+    text-align: center;
+    width: 85%;
 }

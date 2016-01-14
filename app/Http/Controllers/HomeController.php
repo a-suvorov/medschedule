@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Classes\Utils;
+use App\Doctor;
 use App\Pacient;
 use App\PacientManager;
 use App\Schedule;
@@ -128,6 +129,7 @@ class HomeController extends Controller {
             /*****************************************************/
             $data = array();
             if (Auth::check()) {  // вход выполнен в административную часть - то роль админа получаем пользователя из Users
+
                 $data["is_admin"] = true;
                 $user = Auth::user();
                 $data["user_id"] = $user->id;
@@ -143,6 +145,7 @@ class HomeController extends Controller {
              * получаем список специализаций и "привязанных" к ним врачей
              */
             $specializations = Specialization::all();
+
             foreach ($specializations as $spec){
                 $doctors = $spec->doctors;
                 if ($doctors->toArray()) $data["doctors"][$spec->name] = $doctors;
@@ -229,6 +232,25 @@ class HomeController extends Controller {
         if (Auth::check()){
             $peoples = Schedule::where("pacient_id","!=","null")->orderBy('data_priem', 'DESC')->paginate(15);
             return view("peoples-list",["data" => $peoples]);
+        }
+    }
+
+    public function getDoctorsInfoList(){
+        if (Auth::check()){
+            //$doctors = Doctor::paginate(15);
+            $doctors = Doctor::paginate(15);
+            $spec = Specialization::all();
+
+            $user = Auth::user();
+            $data["user_id"] = $user->id;
+            $data["user_fullname"] = $user->fullname;
+
+           /* foreach ($doctors as $doc){
+                print_r($doc->spec);
+            }*/
+            //print_r($doctors);
+            //exit;
+            return view("doctors-list",["doctors" => $doctors, "spec" => $spec, "data"=>$data]);
         }
     }
 

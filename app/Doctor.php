@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model{
     protected $fillable = ['name','description','fullname'];
-    public function specialization()
+    public function spec()
     {
         return $this->belongsTo('App\Specialization');
 
