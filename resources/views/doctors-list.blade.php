@@ -44,7 +44,15 @@
                         <option value="{{$s->id}}">{{$s->name}}</option>
                     @endforeach
                 </select>
-                <input name="del_spec" type="submit" value="удалить" class="button del-button alert"/>
+                <input name="del_spec" type="submit" value="удалить" class="button del-button alert hide"/>
+                {{--
+                <div id="del-spec-confirm-window" class="del_spec_confirm reveal-modal tiny"  data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                    <div>Удалить выбранную специализацию?</div>
+                    <a name="del_spec_btn" class="button del-button alert" data-reveal-id="del-spec-confirm-window">удалить</a>
+                    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+                </div>
+                <a name="del_spec_btn" class="button del-button alert" data-reveal-id="del-spec-confirm-window">удалить</a>
+                --}}
             </form>
         </div>
     </div>

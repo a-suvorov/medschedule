@@ -10245,6 +10245,14 @@ div.ui-widget-header {
   height: auto;
 }
 
+/* line 63, ../scss/_admin.scss */
+#del-spec-confirm-window > * {
+  display: block;
+  font-weight: 300;
+  margin: 10px auto;
+  text-align: center;
+}
+
 /* line 1, ../scss/_adminlogin.scss */
 .adminlogin-form {
   background: rgba(196, 224, 239, 0.9) none repeat scroll 0 0;

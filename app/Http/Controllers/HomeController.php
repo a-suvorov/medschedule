@@ -2,6 +2,8 @@
 
 use App\Classes\Utils;
 use App\Doctor;
+use App\Events\PeopleWriteToVisit;
+use App\Handlers\SystemListern;
 use App\Pacient;
 use App\PacientManager;
 use App\Schedule;
@@ -10,6 +12,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -34,6 +37,8 @@ class HomeController extends Controller {
 	 */
 	public function __construct()
 	{
+        $subscriber = new SystemListern();
+        Event::subscribe($subscriber);
 		//$this->middleware('auth');
 	}
 
@@ -121,6 +126,7 @@ class HomeController extends Controller {
                         $sched->pacient_id = $request->input('user_id');
                         $sched->save();
                         $successMessage = "Запись к врачу {$sched->doctor->name} на дату ".date("d.m.Y", strtotime($sched->data_priem))." в {$sched->time_priem} часов успешно произведена";
+                        Event::fire(new PeopleWriteToVisit($sched));
                     }
                     else {
                         $errorMessage = "Запись невозможна.";
