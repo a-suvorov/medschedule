@@ -35,7 +35,7 @@ class OmsParser implements  IParser {
 
     static function getPacientInfo(Pacient $pacient){
         $curl = curl_init(); //инициализация сеанса
-        $timeout = 10; // кол-во секунд ожидание ответа
+        $timeout = 20; // кол-во секунд ожидание ответа
         curl_setopt($curl, CURLOPT_URL, self::$omsUrl); //урл сайта к которому обращаемся
         curl_setopt($curl, CURLOPT_HEADER, 1); //выводим заголовки
         curl_setopt ($curl, CURLOPT_TIMEOUT, $timeout);
