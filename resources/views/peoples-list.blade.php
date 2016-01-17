@@ -12,14 +12,15 @@
                     <th>Время приема</th>
                     <th>Платный/бесплатный</th>
                     <th>Полис</th>
+                    <th>Страховая орг.</th>
                     <th>Код ЛПУ</th>
                     <th>Врач</th>
                 </tr>
                  @foreach ($data as $sched)
                 <tr>
                     <td>{{$sched->pacient->fam}} {{$sched->pacient->im}} {{$sched->pacient->ot}}</td>
-                     <td>{{$sched->data_priem}}</td>
-                  <td>{{$sched->time_priem}}</td>
+                     <td>{{date("d.m.Y", strtotime($sched->data_priem))}}</td>
+                  <td>{{ date("H:i", strtotime($sched->time_priem))}}</td>
                   <td>
                         @if ($sched->pay == 1)
                             платный
@@ -28,6 +29,7 @@
                         @endif
                   </td>
                   <td>{{$sched->pacient->s_polis}} {{$sched->pacient->n_polis}}</td>
+                  <td>{{$sched->pacient->strahovaya}}</td>
                   <td>{{$sched->pacient->kod_lpu}}</td>
                   <td>{{$sched->doctor->name}}</td>
                 </tr>
