@@ -63,46 +63,51 @@ class HomeController extends Controller {
         if (Session::has("user_id") || (Auth::check())){
             $errorMessage = "";
             $successMessage = "";
-            /*
-             * Обновление даты/времени приема если есть
-             */
-            if ($request->has("update_priem")){
-                $updateSched = Schedule::find($request->input("sched_id"));
-                $updateSched->data_priem = date("Y-m-d", strtotime($request->input("message_data_priem")));
-                $updateSched->time_priem = $request->input("message_time_priem");
-                $updateSched->save();
-                $successMessage="Расписание успешно обновлено";
-            }
-            /*
-             * Удаление приема
-             */
-            if ($request->has("del_priem")){
-                $delSched = Schedule::find($request->input("sched_id"));
-                $delSched->delete();
-                $successMessage="Время приема удалено";
-            }
+            if (Auth::check()) {  //только для админа
 
-            /*
-             * Добавление нового приема если пришел запрос
-             */
+                /*
+                 * Обновление даты/времени приема если есть
+                 */
+                if ($request->has("update_priem")){
+                    $updateSched = Schedule::find($request->input("sched_id"));
+                    $updateSched->data_priem = date("Y-m-d", strtotime($request->input("message_data_priem")));
+                    $updateSched->time_priem = $request->input("message_time_priem");
+                    $updateSched->save();
+                    $successMessage="Расписание успешно обновлено";
+                }
+                /*
+                 * Удаление приема
+                 */
+                if ($request->has("del_priem")){
+                    $delSched = Schedule::find($request->input("sched_id"));
+                    $delSched->delete();
+                    $successMessage="Время приема удалено";
+                }
 
-            if ($request->has("add_datatime")){
-                $validator = Validator::make(
-                    $request->all(),
-                    ["data_priem"=> "required", "time_priem"=> "required", "doctor_id"=> "required"]
-                );
-                if ($validator->fails()){
-                    $errorMessage = "Не все поля заполнены или невыбран врач";
+                /*
+                 * Добавление нового приема если пришел запрос
+                 */
+
+                if ($request->has("add_datatime")){
+                    $validator = Validator::make(
+                        $request->all(),
+                        ["data_priem"=> "required", "time_priem"=> "required", "doctor_id"=> "required"]
+                    );
+                    if ($validator->fails()){
+                        $errorMessage = "Не все поля заполнены или невыбран врач";
+                    }
+                    else {
+                        $schedLine = new Schedule();
+                        $schedLine->data_priem =  date("Y-m-d", strtotime($request->input("data_priem")));
+                        $schedLine->time_priem = $request->input("time_priem");
+                        $schedLine->doctor_id = $request->input("doctor_id");
+                        $schedLine->save();
+                        $successMessage = "В расписание врача ".$schedLine->doctor->name." добавлен прием на дату ".date("d.m.Y", strtotime($schedLine->data_priem))." время {$schedLine->time_priem}";
+                    }
                 }
-                else {
-                    $schedLine = new Schedule();
-                    $schedLine->data_priem =  date("Y-m-d", strtotime($request->input("data_priem")));
-                    $schedLine->time_priem = $request->input("time_priem");
-                    $schedLine->doctor_id = $request->input("doctor_id");
-                    $schedLine->save();
-                    $successMessage = "В расписание врача ".$schedLine->doctor->name." добавлен прием на дату ".date("d.m.Y", strtotime($schedLine->data_priem))." время {$schedLine->time_priem}";
-                }
-            }
+
+            }  // end if (Auth::check())
+
 
             /************************************************/
             /*
@@ -235,8 +240,51 @@ class HomeController extends Controller {
         }
     }
 
-    public function getDoctorsInfoList(){
+    public function getDoctorsInfoList(Request $request){
         if (Auth::check()){
+
+                /*
+                 * Добавление врача в БД
+                 */
+                if ($request->has("add_doctor")){
+                    $newDoc = new Doctor();
+                    $newDoc->name = $request->input("new_doctor_name");
+                    $newDoc->spec_id = $request->input("new_spec_id");
+                    $newDoc->save();
+                }
+
+                /*
+                 * Удаление врача из БД
+                 */
+
+                if ($request->has("del_doctor")){
+                    $delDoc = Doctor::find($request->input("del_doctor_id"));
+                    $delDoc->delete();
+                }
+
+                /*
+                 * Добавление специализации в БД
+                 */
+                if ($request->has("add_spec")){
+                    $newSpec = new Specialization();
+                    $newSpec->name = $request->input("new_spec_name");
+                    //echo "true";
+                    //exit;
+                    $newSpec->save();
+                }
+
+                /*
+                 * Удаление специализации из БД
+                 */
+                if ($request->has("del_spec")){
+                    /*echo "id";
+                    echo $request->input("spec_list");
+                    exit;*/
+                    $delSpec = Specialization::find($request->input("spec_list"));
+                    $delSpec->delete();
+                }
+
+
             //$doctors = Doctor::paginate(15);
             $doctors = Doctor::paginate(15);
             $spec = Specialization::all();

@@ -9,7 +9,7 @@
                   
                   @if ($priem->pacient_id)
                   <li class="red schedule-table__cell">
-                      {{$priem->time_priem}}
+                      {{date("H:i", strtotime($priem->time_priem))}}
                       @if ($priem->pay == 1)
                         <span class="pay_flag">(платный)</span>
                       @endif
@@ -17,7 +17,7 @@
                   @else
                   <li class="green schedule-table__cell">
                       <a href="javascript:void(0)" data-sched-id="{{$priem->id}}">
-                          {{$priem->time_priem}}
+                          {{date("H:i", strtotime($priem->time_priem))}}
                           @if ($priem->pay == 1)
                           <span class="pay_flag">(платный)</span>
                           @endif

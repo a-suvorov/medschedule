@@ -10235,6 +10235,16 @@ div.ui-widget-header {
   width: 100px;
 }
 
+/* line 55, ../scss/_admin.scss */
+.action_td {
+  width: 120px;
+}
+
+/* line 59, ../scss/_admin.scss */
+.spec_list {
+  height: auto;
+}
+
 /* line 1, ../scss/_adminlogin.scss */
 .adminlogin-form {
   background: rgba(196, 224, 239, 0.9) none repeat scroll 0 0;
