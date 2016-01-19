@@ -32,6 +32,8 @@
           <a href="javascript:void(0)" class="login-form__enter">Войти</a>
         </form>
       </div>
+
+      <div class="loading-bg"><img class="loading-img" src="images/loading.gif"></div>
     </div>
 
     <div class="rules reveal-modal medium" id="rules" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
@@ -53,7 +55,7 @@
 
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
-    <div class="loading-bg"><img class="loading-img" src="images/loading.gif"></div>
+
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="js/jquery.mask.min.js"></script>
     <script src="bower_components/foundation/js/foundation.min.js"></script>

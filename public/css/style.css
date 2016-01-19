@@ -10041,12 +10041,14 @@ img.loading-img {
   background-image: url("../images/main-bg.jpg");
   background-position: center center;
   background-repeat: no-repeat;
-  height: 100%;
+  /*height: 100%;*/
   position: relative;
   padding-top: 60px;
+  padding-bottom: 60px;
+  min-height: calc(100vh);
 }
 
-/* line 31, ../scss/_main-page.scss */
+/* line 33, ../scss/_main-page.scss */
 .login-form {
   background: rgba(196, 224, 239, 0.9) none repeat scroll 0 0;
   bottom: 0;
@@ -10057,7 +10059,7 @@ img.loading-img {
   padding-bottom: 25px;
 }
 
-/* line 42, ../scss/_main-page.scss */
+/* line 44, ../scss/_main-page.scss */
 .login-form__enter {
   background: #8e9fd2 none repeat scroll 0 0;
   color: #ffffff;
@@ -10075,13 +10077,13 @@ img.loading-img {
   -o-transition: all 0.5s ease-out 0s;
   transition: all 0.5s ease-out 0s;
 }
-/* line 59, ../scss/_main-page.scss */
+/* line 61, ../scss/_main-page.scss */
 .login-form__enter:hover {
   color: #ffffff;
   background: #6578B2;
 }
 
-/* line 66, ../scss/_main-page.scss */
+/* line 68, ../scss/_main-page.scss */
 .login-form input[type="text"] {
   background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0 !important;
   border-color: #ffffff !important;
@@ -10097,7 +10099,7 @@ img.loading-img {
   width: 350px !important;
 }
 
-/* line 81, ../scss/_main-page.scss */
+/* line 83, ../scss/_main-page.scss */
 h1.main-h1 {
   background: rgba(142, 159, 210, 0.9) none repeat scroll 0 0;
   color: #fff;
@@ -10108,25 +10110,25 @@ h1.main-h1 {
   text-align: center;
 }
 
-/* line 91, ../scss/_main-page.scss */
+/* line 93, ../scss/_main-page.scss */
 .login-form__data {
   padding: 30px 30px 20px;
 }
 
-/* line 95, ../scss/_main-page.scss */
+/* line 97, ../scss/_main-page.scss */
 .pers-info {
   margin: 0 auto;
   width: 350px;
   text-align: center;
 }
 
-/* line 101, ../scss/_main-page.scss */
+/* line 103, ../scss/_main-page.scss */
 label.pers-info__label {
   font-weight: 300;
   color: #000;
 }
 
-/* line 106, ../scss/_main-page.scss */
+/* line 108, ../scss/_main-page.scss */
 .information {
   color: #000;
   font-size: 18px;
@@ -10135,7 +10137,7 @@ label.pers-info__label {
   text-align: center;
 }
 
-/* line 116, ../scss/_main-page.scss */
+/* line 118, ../scss/_main-page.scss */
 span.rules-title {
   display: block;
   font-size: 28px;
@@ -10145,7 +10147,7 @@ span.rules-title {
   width: 100%;
 }
 
-/* line 125, ../scss/_main-page.scss */
+/* line 127, ../scss/_main-page.scss */
 .rules__ok {
   color: #fff !important;
   background: #8e9fd2 !important;
@@ -10160,12 +10162,12 @@ span.rules-title {
   width: 100px;
 }
 
-/* line 139, ../scss/_main-page.scss */
+/* line 141, ../scss/_main-page.scss */
 .rules-list__item {
   font-weight: 300;
 }
 
-/* line 143, ../scss/_main-page.scss */
+/* line 145, ../scss/_main-page.scss */
 .login-form__error {
   color: red;
   font-weight: 300;
