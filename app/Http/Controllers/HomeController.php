@@ -106,6 +106,7 @@ class HomeController extends Controller {
                         $schedLine->data_priem =  date("Y-m-d", strtotime($request->input("data_priem")));
                         $schedLine->time_priem = $request->input("time_priem");
                         $schedLine->doctor_id = $request->input("doctor_id");
+                        if ($request->has("pay")) $schedLine->pay = 1;
                         $schedLine->save();
                         $successMessage = "В расписание врача ".$schedLine->doctor->name." добавлен прием на дату ".date("d.m.Y", strtotime($schedLine->data_priem))." время {$schedLine->time_priem}";
                     }
@@ -345,33 +346,49 @@ class HomeController extends Controller {
             $week[$i]["header"] .= date("d.m", strtotime($startDate));
             $startDate = date("Y-m-d",strtotime($startDate."+1 day"));
         }
+
+        $maxLength = 0; //Максимальное кол-во приемов в день
         foreach ($scheds as $sched){
             $datatime_priem = strtotime($sched->data_priem);
             $dm_priem = date("d.m", $datatime_priem);
             switch (date("w", $datatime_priem)){
                 case 1:
                     $week[1]["data"][] = $sched;
+                    if (count($week[1]["data"]) > $maxLength) $maxLength = count($week[1]["data"]);
                     break; //понедельник
                 case 2:
                     $week[2]["data"][] = $sched;
+                    if (count($week[2]["data"]) > $maxLength) $maxLength = count($week[2]["data"]);
                     break; //вторник
                 case 3:
                     $week[3]["data"][] = $sched;
+                    if (count($week[3]["data"]) > $maxLength) $maxLength = count($week[3]["data"]);
                     break; //среда
                 case 4:
                     $week[4]["data"][] = $sched;
+                    if (count($week[4]["data"]) > $maxLength) $maxLength = count($week[4]["data"]);
                     break; //четверг
                 case 5:
                     $week[5]["data"][] = $sched;
+                    if (count($week[5]["data"]) > $maxLength) $maxLength = count($week[5]["data"]);
                     break; //пятница
                 case 6:
                     $week[6]["data"][] = $sched;
+                    if (count($week[6]["data"]) > $maxLength) $maxLength = count($week[6]["data"]);
                     break; //суббота
                 case 0:
                     $week[7]["data"][] = $sched;
+                    if (count($week[7]["data"]) > $maxLength) $maxLength = count($week[7]["data"]);
                     break; //воскресенье
             }
         }
+        /************Дополняем массивы до указанных размеров для красоты*******************/
+        for ($i=1; $i<=7; $i++){
+            if (!isset($week[$i]["data"])) $week[$i]["data"] = array();
+            $week[$i]["data"] = array_pad($week[$i]["data"], $maxLength, null);
+        }
+
+
         return $week;
     }
 

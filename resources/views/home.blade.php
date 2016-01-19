@@ -22,8 +22,14 @@
         @if ($data["is_admin"])
         <div class="admin-bar">
           <form action="" method="post">
-              <div class="admin-bar__date">Выбор даты: <input name="data_priem" class="admin-bar__input-date" type="text"></div>
-              <div class="admin-bar__time">Введите время: <input name="time_priem" class="admin-bar__input-time" type="text" placeholder="__:__"></div>
+              <div class="admin-bar__group">
+                  <div class="admin-bar__date">Выбор даты: <input name="data_priem" class="admin-bar__input-date" type="text"></div>
+                  <div class="admin-bar__time">Введите время: <input name="time_priem" class="admin-bar__input-time" type="text" placeholder="__:__"></div>
+                  <div class="admin-bar__pay"><input type="checkbox" name="pay" id="pay"/> <label for="pay">платный прием</label></div>
+              </div>
+
+
+
               <input type="hidden" name="doctor_id" class="admin-bar__doctor-id" value=""/>
               <input type="hidden" name="_token" class="" value="{{csrf_token()}}"/>
               <input class="button success add_datatime" name="add_datatime" value="Добавить" type="submit">

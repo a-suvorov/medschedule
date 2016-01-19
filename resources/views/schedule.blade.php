@@ -6,22 +6,25 @@
               @if (isset($sch["data"]))
               <ul>
                 @foreach ($sch["data"] as $priem)
-                  
-                  @if ($priem->pacient_id)
-                  <li class="red schedule-table__cell">
-                      {{date("H:i", strtotime($priem->time_priem))}}
-                      @if ($priem->pay == 1)
-                        <span class="pay_flag">(платный)</span>
-                      @endif
-                  </li>
-                  @else
-                  <li class="green schedule-table__cell">
-                      <a href="javascript:void(0)" data-sched-id="{{$priem->id}}">
+                  @if ($priem)
+                      @if ($priem->pacient_id)
+                      <li class="red schedule-table__cell">
                           {{date("H:i", strtotime($priem->time_priem))}}
                           @if ($priem->pay == 1)
-                          <span class="pay_flag">(платный)</span>
+                            <span class="pay_flag">(платный)</span>
                           @endif
-                      </a></li>
+                      </li>
+                      @else
+                      <li class="green schedule-table__cell">
+                          <a href="javascript:void(0)" data-sched-id="{{$priem->id}}">
+                              {{date("H:i", strtotime($priem->time_priem))}}
+                              @if ($priem->pay == 1)
+                              <span class="pay_flag">(платный)</span>
+                              @endif
+                          </a></li>
+                      @endif
+                  @else
+                  <li class="schedule-table__cell"></li>
                   @endif
                 @endforeach
               </ul>

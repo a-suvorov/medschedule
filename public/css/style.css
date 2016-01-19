@@ -10180,23 +10180,33 @@ span.rules-title {
   padding: 10px 0;
 }
 
-/* line 7, ../scss/_admin.scss */
+/* line 8, ../scss/_admin.scss */
+.admin-bar__group {
+  display: inline-block;
+}
+
+/* line 12, ../scss/_admin.scss */
+.admin-bar__group * {
+  font-weight: 300;
+}
+
+/* line 16, ../scss/_admin.scss */
 .admin-bar__date, .admin-bar__time {
   display: inline-block;
   font-weight: 300;
 }
 
-/* line 12, ../scss/_admin.scss */
+/* line 21, ../scss/_admin.scss */
 .admin-bar__time {
   margin-left: 10px;
 }
 
-/* line 16, ../scss/_admin.scss */
+/* line 25, ../scss/_admin.scss */
 .ui-datepicker * {
   font-weight: 300 !important;
 }
 
-/* line 20, ../scss/_admin.scss */
+/* line 29, ../scss/_admin.scss */
 div.ui-widget-header {
   background: #83b745 none repeat scroll 0 0;
   border: 1px solid #83b745;
@@ -10204,7 +10214,7 @@ div.ui-widget-header {
   font-weight: bold;
 }
 
-/* line 27, ../scss/_admin.scss */
+/* line 36, ../scss/_admin.scss */
 .add_datatime {
   font-family: open sans;
   font-weight: 300 !important;
@@ -10212,19 +10222,21 @@ div.ui-widget-header {
   line-height: 2px;
   margin-bottom: 16px !important;
   padding: 0;
-  vertical-align: bottom;
+  vertical-align: top;
   width: 129px;
+  margin-top: 24px;
 }
 
-/* line 38, ../scss/_admin.scss */
+/* line 48, ../scss/_admin.scss */
 .admin-bar__pacients-list, .admin-bar__doctors-list {
   display: inline-block;
   font-size: 50px;
   margin-left: 30px;
-  vertical-align: bottom;
+  vertical-align: top;
+  margin-top: 0px;
 }
 
-/* line 45, ../scss/_admin.scss */
+/* line 56, ../scss/_admin.scss */
 .del-button {
   font-family: Open Sans;
   font-weight: 300;
@@ -10235,17 +10247,17 @@ div.ui-widget-header {
   width: 100px;
 }
 
-/* line 55, ../scss/_admin.scss */
+/* line 66, ../scss/_admin.scss */
 .action_td {
   width: 120px;
 }
 
-/* line 59, ../scss/_admin.scss */
+/* line 70, ../scss/_admin.scss */
 .spec_list {
   height: auto;
 }
 
-/* line 63, ../scss/_admin.scss */
+/* line 74, ../scss/_admin.scss */
 #del-spec-confirm-window > * {
   display: block;
   font-weight: 300;
