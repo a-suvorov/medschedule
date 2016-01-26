@@ -15,13 +15,19 @@
                           @endif
                       </li>
                       @else
-                      <li class="green schedule-table__cell">
-                          <a href="javascript:void(0)" data-sched-id="{{$priem->id}}">
-                              {{date("H:i", strtotime($priem->time_priem))}}
-                              @if ($priem->pay == 1)
-                              <span class="pay_flag">(платный)</span>
-                              @endif
-                          </a></li>
+                          @if ($priem->pay == 1)
+                            <li class="green pay schedule-table__cell">
+                          @else
+                            <li class="green schedule-table__cell">
+                          @endif
+                              <a href="javascript:void(0)" data-sched-id="{{$priem->id}}">
+                                  {{date("H:i", strtotime($priem->time_priem))}}
+                                  @if ($priem->pay == 1)
+                                  <span class="pay_flag">(платный)</span>
+                                  @endif
+                              </a>
+                          </li>
+
                       @endif
                   @else
                   <li class="schedule-table__cell"></li>

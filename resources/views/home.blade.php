@@ -40,7 +40,10 @@
         @endif
         <div class="description">
           <div class="description-inner">
-            <div class="green description__block"></div><span class="description__block2"> - Время свободно, можно записаться</span>
+            <div class="green description__block"></div><span class="description__block2"> - Время свободно (бесплатно, по страховому полису)</span>
+          </div>
+          <div class="description-inner">
+            <div class="green pay description__block"></div><span class="description__block2"> - Время свободно (платно)</span>
           </div>
           <div class="description-inner">
             <div class="red description__block"></div><span class="description__block2"> - Время занято, запись невозможна</span>
@@ -64,12 +67,18 @@
                   <a href="#" class="close">&times;</a>
               </div>
           @endif
+
         <div class="schedule-table">
             <div class="schedule-message">
-                Приветствуем Вас в онлайн системе записи к врачу через Интернет.<br>На данный момент Вы не выбрали врача, к которому хотите записаться.<br>
-                Для отображения расписания приема требуемого специалиста, выберете его слевой стороны.
+                @if ((!$success) && (!$error))
+                    Приветствуем Вас в онлайн-системе записи к врачу через Интернет.<br>На данный момент Вы не выбрали врача, к которому хотите записаться.<br>
+                    Для отображения расписания приема требуемого специалиста выберите его с левой стороны.
+                @else
+                    Если хотите записаться еще, необходимо слева выбрать специалиста.
+                @endif
             </div>
         </div>
+
       </div>
 
     @if ($data["is_admin"])
