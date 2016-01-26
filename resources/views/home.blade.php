@@ -56,7 +56,7 @@
 
           @if ($success)
               <div data-alert class="alert-box success radius">
-                  {{$success}}
+                  {!!$success!!}
                   <a href="#" class="close">&times;</a>
               </div>
           @endif

@@ -126,7 +126,15 @@ class HomeController extends Controller {
                     if (!($sched->pacient_id)) {
                         $sched->pacient_id = $request->input('user_id');
                         $sched->save();
-                        $successMessage = "Запись к врачу {$sched->doctor->name} на дату ".date("d.m.Y", strtotime($sched->data_priem))." в {$sched->time_priem} часов успешно произведена";
+                        $successMessage = "Запись к врачу {$sched->doctor->name} на дату ".date("d.m.Y", strtotime($sched->data_priem))." в {$sched->time_priem} часов успешно произведена<br>
+                        <ul>
+                            <li class='rules-list__item'>
+                                Необходимо не менее чем за 30 минут до начала приема обратиться в регистратуру, предъявить полис и паспорт, оформить статталон.
+                            </li>
+                            <li class='rules-list__item'>Если Вы не являетесь пациентом, прикрепленным к Больнице КНЦ РАН, то при обращении Вам необходимо иметь при себе амбулаторную карту или выписку из нее</li>
+                            <li class='rules-list__item'>Если Вы записались на платный прием, необходимо произвести оплату до начала приема в кабинете №3 </li>
+                        </ul>
+                        ";
                         Event::fire(new PeopleWriteToVisit($sched));
                     }
                     else {
